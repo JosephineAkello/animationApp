@@ -35,7 +35,9 @@ onTap(){
         child:Center(
           child: Stack(
             overflow: Overflow.visible,
-            children: [buildCatAnimation(),
+            children: [
+              buildCatAnimation(),
+              buildBox(),
             ],
           ),
         ),
@@ -57,6 +59,13 @@ onTap(){
         );
       },
       child: Cat(),
+    );
+  }
+  Widget buildBox(){
+    return Container(
+      height: 200.0,
+      width: 200.0,
+      color: Colors.pinkAccent,
     );
   }
 }
