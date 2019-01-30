@@ -8,6 +8,8 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> with TickerProviderStateMixin {
   Animation<double> catAnimation;
   AnimationController catController;
+  Animation<double> boxAnimation;
+  AnimationController boxController;
 
   initState() {
     super.initState();
@@ -66,6 +68,12 @@ onTap(){
       height: 200.0,
       width: 200.0,
       color: Colors.pinkAccent,
+    );
+  }
+  Widget buildLeftFlap(){
+    return Positioned(
+      left: 3.0,
+      child: AnimatedBuilder(),
     );
   }
 }
