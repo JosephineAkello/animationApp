@@ -14,14 +14,22 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   initState() {
     super.initState();
 
-    boxController= AnimationController(
+    boxController = AnimationController(
       duration: Duration(milliseconds: 300),
       vsync: this,
     );
-    boxAnimation= Tween(begin: 0.0, end: 100.0
-    ).animate(CurvedAnimation(
-      parent: boxController,
-      curve: Curves.easeInOut);
+    boxAnimation = Tween(begin: 0.0, end: 100.0).animate(
+      CurvedAnimation(parent: boxController, curve: Curves.easeInOut),
+    );
+
+    boxAnimation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        boxController.reverse();
+      } else if (status == AnimationStatus.dismissed) {
+        boxController.forward();
+      }
+    });
+
     catController = AnimationController(
       duration: Duration(milliseconds: 200),
       vsync: this,
@@ -29,33 +37,34 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
     catAnimation = Tween(begin: 0.0, end: 100.0).animate(
       CurvedAnimation(parent: catController, curve: Curves.easeIn),
     );
-    );}
-onTap(){
-  if(catController.status==AnimationStatus.completed){
-    catController.reverse();
-  } else if(catController.status==AnimationStatus.dismissed){
-    catController.forward();
   }
-}
+
+  onTap() {
+    if (catController.status == AnimationStatus.completed) {
+      catController.reverse();
+    } else if (catController.status == AnimationStatus.dismissed) {
+      catController.forward();
+    }
+  }
+
   Widget build(context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Animation"),
       ),
       body: GestureDetector(
-        child:Center(
+        child: Center(
           child: Stack(
             overflow: Overflow.visible,
             children: [
               buildCatAnimation(),
               buildBox(),
+              buildLeftFlap(),
             ],
           ),
         ),
-      
-         onTap: onTap,
+        onTap: onTap,
       ),
-     
     );
   }
 
@@ -72,14 +81,16 @@ onTap(){
       child: Cat(),
     );
   }
-  Widget buildBox(){
+
+  Widget buildBox() {
     return Container(
       height: 200.0,
       width: 200.0,
       color: Colors.pinkAccent,
     );
   }
-  Widget buildLeftFlap(){
+
+  Widget buildLeftFlap() {
     return Positioned(
       left: 3.0,
       child: AnimatedBuilder(),
