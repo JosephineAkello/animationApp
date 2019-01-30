@@ -13,6 +13,15 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
 
   initState() {
     super.initState();
+
+    boxController= AnimationController(
+      duration: Duration(milliseconds: 300),
+      vsync: this,
+    );
+    boxAnimation= Tween(begin: 0.0, end: 100.0
+    ).animate(CurvedAnimation(
+      parent: boxController,
+      curve: Curves.easeInOut);
     catController = AnimationController(
       duration: Duration(milliseconds: 200),
       vsync: this,
@@ -20,7 +29,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
     catAnimation = Tween(begin: 0.0, end: 100.0).animate(
       CurvedAnimation(parent: catController, curve: Curves.easeIn),
     );
-  }
+    );}
 onTap(){
   if(catController.status==AnimationStatus.completed){
     catController.reverse();
