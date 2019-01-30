@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/cat.dart';
 
 class Home extends StatefulWidget {
   HomeState createState() => HomeState();
@@ -28,6 +29,17 @@ vsync: this,
     return Scaffold(
         appBar: AppBar(
           title: Text("Animation"),
-        ) );
+        ),
+        body: Container(
+          child:buildCatAnimation(),
+        ), );
+}
+Widget buildCatAnimation(){
+  return AnimatedBuilder(animation: catAnimation,
+  builder: (context,child){
+
+  },
+  child: Cat(),
+  );
 }
 }
