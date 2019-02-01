@@ -7,7 +7,7 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> with TickerProviderStateMixin {
-  Animation<Color> catAnimation;
+  Animation<double> catAnimation;
   AnimationController catController;
   Animation<double> boxAnimation;
   AnimationController boxController;
@@ -36,12 +36,13 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         boxController.forward();
       }
     });
+boxController.forward();
 
     catController = AnimationController(
       duration: Duration(milliseconds: 200),
       vsync: this,
     );
-    catAnimation = ColorTween(begin: Colors.transparent, end:Colors.black45)
+    catAnimation = Tween(begin: -35.0, end:-80.0)
     .animate(
       CurvedAnimation(
         parent: catController, 
@@ -52,8 +53,10 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
 
   onTap() {
     if (catController.status == AnimationStatus.completed) {
+      boxController.forward();
       catController.reverse();
     } else if (catController.status == AnimationStatus.dismissed) {
+      boxController.stop();
       catController.forward();
     }
   }
@@ -137,7 +140,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
           return Transform.rotate(
             child: child,
             alignment: Alignment.topRight,
-            angle: boxAnimation.value,
+            angle: -boxAnimation.value,
           );
         },
       ),
